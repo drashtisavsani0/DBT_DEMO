@@ -10,6 +10,7 @@ WITH CTC AS (
 
     FROM
     {{ source('demo', 'bike') }}
+    
 )
 
 select 
