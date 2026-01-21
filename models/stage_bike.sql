@@ -1,0 +1,24 @@
+WITH BIKE AS(
+
+select
+RIDE_ID,
+REPLACE(STARTED_AT,'"','') AS STARTED_AT,
+REPLACE(ENDED_AT,'"','') AS ENDED_AT,
+START_STATION_NAME,
+START_STATION_ID,
+END_STATION_NAME,
+END_STATION_ID,
+START_LATITUDE,
+START_LONGITUDE,
+END_LATITUDE,
+END_LONGITUDE,
+MEMBER_OR_CASUAL_RIDE
+
+from {{ source('demo', 'bike') }}
+
+where RIDE_ID !='"bikeid"' and STARTED_AT != '"starttime"' and STARTED_AT != 'starttime'
+)
+
+select
+*
+from BIKE
