@@ -1,11 +1,30 @@
 WITH daily_weather as(
     select
-    *
-    from {{ source('demo', 'drivers_silver') }}
-    ORDER BY dob desc
-    limit 10
-)
+    DATE(TIME) AS DAILY_WEATHER,
+    WEATHER,
+    TEMP,
+    PRESSURE,
+    HUMIDITY,
+    CLOUDS
+    from {{ source('demo', 'weather') }}
+),
+
+daily_weather_agg as(
+    select
+    daily_weather,
+    weather,
+    round(avg(TEMP),2) as avg_temp,
+    round(avg(PRESSURE),2) as avg_pressure,
+    round(avg(HUMIDITY),2) as avg_humidity,
+    round(avg(CLOUDS),2) as avg_clouds
+
+    from daily_weather
+
+    group by daily_weather, weather
+
+    qualify ROW_NUMBER() OVER (PARTITION BY daily_weather ORDER BY count(weather) desc) =1
+) 
 
 select
 *
-from daily_weather
+from daily_weather_agg

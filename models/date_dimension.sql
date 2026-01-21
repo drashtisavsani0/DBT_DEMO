@@ -1,4 +1,4 @@
-WITH CTC AS (
+WITH CTE AS (
     select
     TO_TIMESTAMP(STARTED_AT) AS STARTED_AT,
     DATE(TO_TIMESTAMP(STARTED_AT)) AS DATE_STARTED_AT,
@@ -8,11 +8,11 @@ WITH CTC AS (
 
     {{ get_season('STARTED_AT')}} AS STATION_OF_YEAR,
 
-    FROM
-    {{ source('demo', 'bike') }}
+    FROM {{ ref('stage_bike') }}
+    -- {{ source('demo', 'bike') }}
     
 )
 
 select 
 *
-from CTC
+from CTE

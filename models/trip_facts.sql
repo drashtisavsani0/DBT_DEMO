@@ -1,7 +1,7 @@
 WITH TRIPS AS(
     select
     RIDE_ID,
-    RIDEABLE_TYPE,
+    -- RIDEABLE_TYPE,
     DATE(TO_TIMESTAMP(STARTED_AT)) as TRIP_DATE,
     START_STATION_ID,
     END_STATION_ID,
@@ -9,7 +9,8 @@ WITH TRIPS AS(
     TIMESTAMPDIFF(SECOND ,TO_TIMESTAMP(STARTED_AT), TO_TIMESTAMP(ENDED_AT)) AS TRIP_DURATION_SECOND,
     TIMESTAMPDIFF(MINUTES ,TO_TIMESTAMP(STARTED_AT), TO_TIMESTAMP(ENDED_AT)) AS TRIP_DURATION_MINUTES
 
-    from {{ source('demo', 'bike') }}
+    -- from {{ source('demo', 'bike') }}
+    from {{ ref('stage_bike') }}
 )
 
 select

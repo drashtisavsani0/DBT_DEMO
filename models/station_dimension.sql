@@ -6,7 +6,8 @@ WITH BIKE as(
     start_latitude as station_lat,
     start_longitude as station_lng
 
-    from {{ source('demo', 'bike') }}
+    -- from {{ source('demo', 'bike') }}
+    from {{ ref('stage_bike') }}
 )
 
 select

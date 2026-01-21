@@ -6,4 +6,4 @@ sources:
     tables:
       - name: bike
       - name: weathertable_new
-      - name: drivers_silver
+      - name: weather

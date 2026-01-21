@@ -1,12 +1,14 @@
-WITH CTC AS(
+WITH CTE AS(
     select
     t.*,
     w.*
     from {{ ref('trip_facts') }} t
     left join {{ ref('daily_weather') }} w
-    on t.TRIP_DATE = w.DOB
+    on t.TRIP_DATE = w.DAILY_WEATHER
+
+    ORDER BY TRIP_DATE desc
 )
 
 select
 *
-from CTC
+from CTE
